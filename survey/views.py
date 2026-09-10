@@ -32,6 +32,14 @@ def client_list(request):
     })
 
 
+def client_list_partial(request):
+    clients = Client.objects.all()
+    sector = request.GET.get('sector')
+    if sector:
+        clients = clients.filter(sector=sector)
+    return render(request, 'survey/_client_cards.html', {'clients': clients})
+
+
 def project_create(request):
     if request.method == 'POST':
         form = SurveyProjectForm(request.POST)

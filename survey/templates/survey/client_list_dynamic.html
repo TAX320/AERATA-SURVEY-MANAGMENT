@@ -1,71 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Clients — Aerata</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #1B2025; color: #f1f1f1; }
-        .navbar { background-color: #20262D; }
-        .navbar-brand { color: #8BB25C !important; font-weight: bold; }
-        .client-card { background-color: #20262D; border: 1px solid #2a313a; border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem; transition: 0.2s; }
-        .client-card:hover { border-color: #8BB25C; }
-        .sector-badge { background-color: #2a313a; color: #8BB25C; font-size: 0.75rem; padding: 0.3rem 0.7rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
-        .client-name { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.3rem; color: #f1f1f1; }
-        .client-meta { color: #8a929a; font-size: 0.9rem; }
-        .btn-primary { background-color: #8BB25C; border: none; }
-        .btn-outline-light:hover { background-color: #2a313a; }
-        .project-count { color: #55B5FF; font-weight: 600; }
-        .form-select { background-color: #1B2025; border: 1px solid #2a313a; color: #f1f1f1; }
-        .form-select option { background-color: #1B2025; color: #f1f1f1; }
-    </style>
+<meta charset="UTF-8">
+<title>Clients — Aerata</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body { background-color: #1B2025; color: #f1f1f1; }
+.navbar { background-color: #20262D; }
+.navbar-brand { color: #8BB25C !important; font-weight: bold; }
+.client-card { background-color: #20262D; border: 1px solid #2a313a; border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem; transition: 0.2s; }
+.client-card:hover { border-color: #8BB25C; }
+.sector-badge { background-color: #2a313a; color: #8BB25C; font-size: 0.75rem; padding: 0.3rem 0.7rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
+.client-name { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.3rem; color: #f1f1f1; }
+.client-meta { color: #8a929a; font-size: 0.9rem; }
+.btn-primary { background-color: #8BB25C; border: none; }
+.btn-outline-light:hover { background-color: #2a313a; }
+.project-count { color: #55B5FF; font-weight: 600; }
+.form-select { background-color: #1B2025; border: 1px solid #2a313a; color: #f1f1f1; }
+.form-select option { background-color: #1B2025; color: #f1f1f1; }
+#loading-indicator { display: none; color: #8BB25C; font-size: 0.85rem; }
+</style>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark px-4">
-    <a class="navbar-brand" href="{% url 'project_list' %}">AERATA</a>
-    <div class="ms-auto">
-        <a class="btn btn-outline-light btn-sm me-2" href="{% url 'project_list' %}">Projects</a>
-        <a class="btn btn-primary btn-sm" href="#">+ New Client</a>
-    </div>
+<a class="navbar-brand" href="{% url 'project_list' %}">AERATA</a>
+<div class="ms-auto">
+<a class="btn btn-outline-light btn-sm me-2" href="{% url 'project_list' %}">Projects</a>
+<a class="btn btn-primary btn-sm" href="#">+ New Client</a>
+</div>
 </nav>
 
 <div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Clients</h2>
-        <form method="get">
-            <select name="sector" class="form-select w-auto" onchange="this.form.submit()">
-                <option value="" {% if not selected_sector %}selected{% endif %}>All Sectors</option>
-                <option value="energy" {% if selected_sector == "energy" %}selected{% endif %}>Energy</option>
-                <option value="infrastructure" {% if selected_sector == "infrastructure" %}selected{% endif %}>Infrastructure</option>
-                <option value="agriculture" {% if selected_sector == "agriculture" %}selected{% endif %}>Agriculture</option>
-                <option value="other" {% if selected_sector == "other" %}selected{% endif %}>Other</option>
-            </select>
-        </form>
-    </div>
-
-    <div class="row">
-        {% for client in clients %}
-        <div class="col-md-6">
-            <div class="client-card">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                        <div class="client-name">{{ client.name }}</div>
-                        <div class="client-meta">{{ client.contact_person|default:"—" }}</div>
-                    </div>
-                    <span class="sector-badge">{{ client.get_sector_display }}</span>
-                </div>
-                <hr style="border-color: #2a313a;">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="project-count">{{ client.projects.count }} project(s)</span>
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <p class="text-secondary">No clients found.</p>
-        {% endfor %}
-    </div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+<h2>Clients</h2>
+<div class="d-flex align-items-center gap-2">
+<span id="loading-indicator">Loading...</span>
+<select id="sector-filter" class="form-select w-auto">
+<option value="">All Sectors</option>
+<option value="energy">Energy</option>
+<option value="infrastructure">Infrastructure</option>
+<option value="agriculture">Agriculture</option>
+<option value="other">Other</option>
+</select>
 </div>
+</div>
+
+<div class="row" id="client-results">
+{% include "survey/_client_cards.html" %}
+</div>
+</div>
+
+<script>
+const sectorFilter = document.getElementById('sector-filter');
+const resultsDiv = document.getElementById('client-results');
+const loadingIndicator = document.getElementById('loading-indicator');
+
+sectorFilter.addEventListener('change', function () {
+    const sector = sectorFilter.value;
+    loadingIndicator.style.display = 'inline';
+
+    fetch("{% url 'client_list_partial' %}?sector=" + encodeURIComponent(sector))
+        .then(response => response.text())
+        .then(html => {
+            resultsDiv.innerHTML = html;
+            loadingIndicator.style.display = 'none';
+        })
+        .catch(error => {
+            loadingIndicator.style.display = 'none';
+            resultsDiv.innerHTML = '<p class="text-danger">Failed to load clients.</p>';
+        });
+});
+</script>
 
 </body>
 </html>
