@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clients — Aerata</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #1B2025; color: #f1f1f1; }
+        .navbar { background-color: #20262D; }
+        .navbar-brand { color: #8BB25C !important; font-weight: bold; }
+        .card { background-color: #20262D; border: none; }
+        .client-card { background-color: #20262D; border: 1px solid #2a313a; border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem; transition: 0.2s; }
+        .client-card:hover { border-color: #8BB25C; }
+        .sector-badge { background-color: #2a313a; color: #8BB25C; font-size: 0.75rem; padding: 0.3rem 0.7rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .client-name { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.3rem; }
+        .client-meta { color: #8a929a; font-size: 0.9rem; }
+        .btn-primary { background-color: #8BB25C; border: none; }
+        .btn-outline-light:hover { background-color: #2a313a; }
+        .project-count { color: #55B5FF; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark px-4">
+    <a class="navbar-brand" href="project_list.html">AERATA</a>
+    <div class="ms-auto">
+        <a class="btn btn-outline-light btn-sm me-2" href="project_list.html">Projects</a>
+        <a class="btn btn-primary btn-sm" href="#">+ New Client</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Clients</h2>
+        <select class="form-select w-auto bg-dark text-light border-secondary">
+            <option>All Sectors</option>
+            <option>Energy</option>
+            <option>Infrastructure</option>
+            <option>Agriculture</option>
+        </select>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="client-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="client-name">RWE Renewables Greece</div>
+                        <div class="client-meta">Charilaos Mitrelias</div>
+                    </div>
+                    <span class="sector-badge">Energy</span>
+                </div>
+                <hr style="border-color: #2a313a;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="project-count">1 active project</span>
+                    <a href="client_detail.html" class="btn btn-sm btn-outline-light">View</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="client-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="client-name">iSOLAR S.A.</div>
+                        <div class="client-meta">Argyris Iliadis</div>
+                    </div>
+                    <span class="sector-badge">Energy</span>
+                </div>
+                <hr style="border-color: #2a313a;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="project-count">1 active project</span>
+                    <a href="client_detail.html" class="btn btn-sm btn-outline-light">View</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="client-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="client-name">PPC Renewables</div>
+                        <div class="client-meta">Konstantinos Mavros</div>
+                    </div>
+                    <span class="sector-badge">Energy</span>
+                </div>
+                <hr style="border-color: #2a313a;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="project-count">1 active project</span>
+                    <a href="client_detail.html" class="btn btn-sm btn-outline-light">View</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="client-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="client-name">ΔΕΔΔΗΕ</div>
+                        <div class="client-meta">—</div>
+                    </div>
+                    <span class="sector-badge">Infrastructure</span>
+                </div>
+                <hr style="border-color: #2a313a;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="project-count">0 active projects</span>
+                    <a href="client_detail.html" class="btn btn-sm btn-outline-light">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

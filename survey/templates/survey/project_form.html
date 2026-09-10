@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Survey Project — Aerata</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #1B2025; color: #f1f1f1; }
+        .navbar { background-color: #20262D; }
+        .navbar-brand { color: #8BB25C !important; font-weight: bold; }
+        .card { background-color: #20262D; border: none; }
+        .form-label { color: #8a929a; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .form-control, .form-select {
+            background-color: #1B2025; border: 1px solid #2a313a; color: #f1f1f1;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #1B2025; color: #f1f1f1; border-color: #8BB25C;
+            box-shadow: 0 0 0 0.2rem rgba(139, 178, 92, 0.25);
+        }
+        .form-control::placeholder { color: #6b7280; opacity: 1; }
+        .form-select option { background-color: #1B2025; color: #f1f1f1; }
+        .btn-primary { background-color: #8BB25C; border: none; }
+        .btn-primary:hover { background-color: #7aa04d; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark px-4">
+    <a class="navbar-brand" href="project_list.html">AERATA</a>
+    <div class="ms-auto">
+        <a class="btn btn-outline-light btn-sm" href="project_list.html">&larr; Back to Projects</a>
+    </div>
+</nav>
+
+<div class="container mt-5" style="max-width: 700px;">
+    <h2 class="mb-4">New Survey Project</h2>
+
+    <div class="card p-4">
+        <form>
+            <div class="mb-3">
+                <label class="form-label">Project Title</label>
+                <input type="text" class="form-control" placeholder="e.g. RWE Attica Wind Farm Inspection">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" rows="3" placeholder="Brief description of the survey scope..."></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Client</label>
+                    <select class="form-select">
+                        <option selected disabled>Select client...</option>
+                        <option>RWE Renewables Greece</option>
+                        <option>iSOLAR S.A.</option>
+                        <option>PPC Renewables</option>
+                        <option>ΔΕΔΔΗΕ</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Service Type</label>
+                    <select class="form-select">
+                        <option selected disabled>Select service...</option>
+                        <option>Power Lines Inspection</option>
+                        <option>Solar Audit</option>
+                        <option>Wind Turbine Inspection</option>
