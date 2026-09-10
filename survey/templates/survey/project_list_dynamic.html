@@ -45,6 +45,7 @@
                     <th>Status</th>
                     <th>Area (km²)</th>
                     <th>Requested</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -56,10 +57,11 @@
                     <td><span class="badge badge-{{ project.status }}">{{ project.get_status_display }}</span></td>
                     <td>{{ project.area_km2|default:"—" }}</td>
                     <td>{{ project.requested_date }}</td>
+                    <td><a href="{% url 'project_detail' project.pk %}" class="btn btn-sm btn-outline-light">View</a></td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="6" class="text-center text-secondary py-4">No projects found.</td>
+                    <td colspan="7" class="text-center text-secondary py-4">No projects found.</td>
                 </tr>
                 {% endfor %}
             </tbody>
