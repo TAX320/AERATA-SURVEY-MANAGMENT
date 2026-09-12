@@ -1,0 +1,903 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --aerata-bg: #0A1014;
+    --aerata-bg-elevated: #111820;
+    --aerata-bg-card: #171D27;
+    --aerata-border: #232B36;
+    --aerata-text: #F2F4F7;
+    --aerata-text-secondary: #A8AFBA;
+    --aerata-lime: #B7E64B;
+    --aerata-lime-dark: #9BCB3A;
+}
+
+body {
+    background-color: var(--aerata-bg);
+    color: var(--aerata-text);
+    font-family: 'Manrope', 'Inter', -apple-system, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--aerata-text);
+}
+
+.card h5 {
+    color: var(--aerata-text);
+}
+
+.navbar {
+    background-color: var(--aerata-bg-elevated);
+    border-bottom: 1px solid var(--aerata-border);
+    position: relative;
+    z-index: 2;
+}
+
+.navbar-brand img {
+    height: 72px;
+    width: auto;
+}
+
+.navbar .btn {
+    font-size: 1rem;
+    padding: 0.6rem 1.25rem;
+    white-space: nowrap;
+}
+
+.card {
+    background-color: var(--aerata-bg-card);
+    border: 1px solid var(--aerata-border);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--aerata-text);
+}
+
+.table > :not(caption) > * > * {
+    background-color: transparent;
+    color: var(--aerata-text);
+    border-bottom: 1px solid var(--aerata-border);
+    padding: 1rem 0.75rem;
+}
+
+.table thead th {
+    background-color: var(--aerata-bg-elevated);
+    color: var(--aerata-text-secondary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 2px solid var(--aerata-border);
+}
+
+.table tbody tr:hover > * {
+    background-color: var(--aerata-bg-elevated);
+}
+
+.badge {
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.4rem 0.75rem;
+    border-radius: 20px;
+}
+
+.badge-requested {
+    background-color: var(--aerata-bg-elevated);
+    color: var(--aerata-text-secondary);
+    border: 1px solid var(--aerata-border);
+}
+
+.badge-scheduled {
+    background-color: #1E2A38;
+    color: #7DB8E8;
+}
+
+.badge-flown {
+    background-color: #2A2E1A;
+    color: var(--aerata-lime);
+}
+
+.badge-delivered {
+    background-color: var(--aerata-lime);
+    color: var(--aerata-bg);
+}
+
+.btn-primary {
+    background-color: var(--aerata-lime);
+    border: none;
+    color: var(--aerata-bg);
+    font-weight: 700;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--aerata-lime-dark);
+    color: var(--aerata-bg);
+}
+
+.btn-outline-light {
+    border-color: var(--aerata-border);
+    color: var(--aerata-text);
+}
+
+.btn-outline-light:hover {
+    background-color: var(--aerata-bg-elevated);
+    border-color: var(--aerata-lime);
+    color: var(--aerata-text);
+}
+
+.btn-outline-danger {
+    border-color: #E8756B;
+    background-color: #E8756B;
+    color: #000000;
+    font-weight: 700;
+}
+
+.btn-outline-danger:hover {
+    background-color: #D45F55;
+    border-color: #D45F55;
+    color: #000000;
+}
+
+.info-label {
+    color: var(--aerata-text-secondary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.info-value {
+    font-size: 1.05rem;
+    margin-bottom: 1.2rem;
+    color: var(--aerata-text);
+    font-weight: 500;
+}
+
+.deliverable-row {
+    border-bottom: 1px solid var(--aerata-border);
+    padding: 0.75rem 0;
+    color: var(--aerata-text);
+}
+
+.form-label {
+    color: var(--aerata-text-secondary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.form-control,
+.form-select {
+    background-color: var(--aerata-bg);
+    border: 1px solid var(--aerata-border);
+    color: var(--aerata-text);
+    border-radius: 8px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--aerata-bg);
+    color: var(--aerata-text);
+    border-color: var(--aerata-lime);
+    box-shadow: 0 0 0 0.2rem rgba(183, 230, 75, 0.2);
+}
+
+.form-control::placeholder {
+    color: #5C6470;
+    opacity: 1;
+}
+
+.form-select option {
+    background-color: var(--aerata-bg);
+    color: var(--aerata-text);
+}
+
+.errorlist {
+    color: #E8756B;
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0.3rem;
+    font-size: 0.85rem;
+}
+
+.alert-danger {
+    background-color: #2A1414;
+    border: 1px solid #E8756B;
+    color: #E8756B;
+    border-radius: 8px;
+}
+
+.client-card {
+    background-color: var(--aerata-bg-card);
+    border: 1px solid var(--aerata-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.client-card:hover {
+    border-color: var(--aerata-lime);
+}
+
+.client-card-link {
+    text-decoration: none;
+    display: block;
+}
+
+.sector-badge {
+    background-color: var(--aerata-bg-elevated);
+    color: var(--aerata-lime);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--aerata-border);
+}
+
+.client-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: var(--aerata-text);
+}
+
+.client-meta {
+    color: var(--aerata-text-secondary);
+    font-size: 0.9rem;
+}
+
+.project-count {
+    color: var(--aerata-lime);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+#status-message {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+#status-message .text-success {
+    color: var(--aerata-lime) !important;
+}
+
+#loading-indicator {
+    display: none;
+    color: var(--aerata-lime);
+    font-size: 0.85rem;
+}
+
+hr {
+    border-color: var(--aerata-border);
+    opacity: 1;
+}
+
+.aerata-footer {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    margin-top: 3rem;
+    border-top: 1px solid var(--aerata-border);
+}
+
+.footer-logo {
+    height: 64px;
+    width: auto;
+    margin-bottom: 0.75rem;
+    opacity: 0.9;
+}
+
+.footer-text {
+    color: var(--aerata-text-secondary);
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+}
+
+.project-actions-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: nowrap;
+}
+
+.project-actions-bar .btn,
+.project-actions-bar .form-select {
+    font-size: 0.95rem;
+    padding: 0.55rem 1rem;
+    white-space: nowrap;
+}
+
+.project-actions-bar .form-select {
+    width: auto;
+    min-width: 140px;
+}
+
+/* --- Reusable top-left corner glow --- */
+.corner-glow {
+    position: relative;
+    overflow: hidden;
+}
+
+.corner-glow::before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    width: 130px;
+    height: 130px;
+    background: rgba(183, 230, 75, 0.14);
+    border-radius: 50%;
+    filter: blur(36px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.corner-glow > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* --- KPI cards --- */
+.kpi-card-link {
+    text-decoration: none;
+    display: block;
+}
+
+.kpi-card {
+    background-color: rgba(23, 29, 39, 0.5);
+    border: 1px solid var(--aerata-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: 0.25s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.kpi-card:hover {
+    border-color: var(--aerata-lime);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.kpi-top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.kpi-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--aerata-text-secondary);
+}
+
+.kpi-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--aerata-text-secondary);
+    transition: 0.2s;
+}
+
+.kpi-card:hover .kpi-icon {
+    color: var(--aerata-lime);
+}
+
+.kpi-number {
+    position: relative;
+    z-index: 1;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--aerata-text);
+    font-family: 'Manrope', monospace;
+}
+
+/* --- Revenue card (hosts the calendar) --- */
+.revenue-card {
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(23, 29, 39, 0.5);
+    border: 1px solid var(--aerata-border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.revenue-number {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--aerata-text);
+    margin: 0.3rem 0;
+    font-family: 'Manrope', monospace;
+}
+
+.revenue-caption {
+    font-size: 0.75rem;
+    color: var(--aerata-text-secondary);
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.calendar-inline {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--aerata-border);
+}
+
+/* --- Top clients with progress fill --- */
+.top-client-row {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    margin-bottom: 0.6rem;
+    border-radius: 8px;
+    background-color: var(--aerata-bg);
+    border: 1px solid var(--aerata-border);
+    text-decoration: none !important;
+    overflow: hidden;
+    transition: 0.15s;
+}
+
+.top-client-row:hover {
+    border-color: var(--aerata-lime);
+}
+
+.top-client-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(183, 230, 75, 0.08);
+    z-index: 0;
+    transition: width 0.4s ease;
+}
+
+.top-client-name {
+    position: relative;
+    z-index: 1;
+    color: var(--aerata-text);
+    font-weight: 800;
+}
+
+.top-client-amount {
+    position: relative;
+    z-index: 1;
+    color: var(--aerata-lime);
+    font-weight: 700;
+    font-family: 'Manrope', monospace;
+}
+
+/* --- Today's calendar (inline in revenue card) --- */
+.calendar-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding-bottom: 0.85rem;
+    margin-bottom: 0.85rem;
+    border-bottom: 1px solid var(--aerata-border);
+}
+
+.calendar-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--aerata-lime);
+    flex-shrink: 0;
+}
+
+.calendar-day-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--aerata-text-secondary);
+}
+
+.calendar-date {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--aerata-text);
+}
+
+.calendar-events {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    max-height: 140px;
+    overflow-y: auto;
+}
+
+.calendar-events::-webkit-scrollbar {
+    width: 5px;
+}
+
+.calendar-events::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.calendar-events::-webkit-scrollbar-thumb {
+    background: var(--aerata-border);
+    border-radius: 10px;
+}
+
+.calendar-event-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.7rem;
+    background-color: var(--aerata-bg);
+    border: 1px solid var(--aerata-border);
+    border-radius: 8px;
+    text-decoration: none !important;
+    transition: 0.15s;
+}
+
+.calendar-event-row:hover {
+    border-color: var(--aerata-lime);
+}
+
+.calendar-event-title {
+    color: var(--aerata-text);
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.calendar-event-client {
+    color: var(--aerata-text-secondary);
+    font-size: 0.75rem;
+}
+
+/* --- Status filter chip --- */
+.status-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--aerata-bg-elevated);
+    border: 1px solid var(--aerata-lime);
+    color: var(--aerata-lime);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+}
+
+.status-filter-clear {
+    color: var(--aerata-text-secondary);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.status-filter-clear:hover {
+    color: var(--aerata-lime);
+}
+
+/* --- Ambient effect utilities --- */
+.card-glow {
+    box-shadow: 0 0 50px -12px rgba(183, 230, 75, 0.15);
+}
+
+.glass-border {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+}
+
+.inset-shadow {
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* --- Dashboard background image --- */
+.dashboard-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.08;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* --- Symmetric widget boxes (Fleet Status / Area Covered) --- */
+.header-widget {
+    background-color: rgba(23, 29, 39, 0.5);
+    border: 1px solid var(--aerata-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-widget-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--aerata-text);
+    margin-bottom: 1rem;
+}
+
+.header-widget-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--aerata-lime);
+    flex-shrink: 0;
+}
+
+/* --- Fleet status widget --- */
+.fleet-status-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.fleet-mission-count {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+}
+
+.fleet-count-number {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--aerata-lime);
+    font-family: 'Manrope', monospace;
+}
+
+.fleet-count-label {
+    font-size: 0.8rem;
+    color: var(--aerata-text-secondary);
+    font-weight: 600;
+}
+
+.fleet-wind-map {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--aerata-border);
+    height: 150px;
+}
+
+.fleet-wind-map iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.fleet-wind-caption {
+    font-size: 0.7rem;
+    color: var(--aerata-text-secondary);
+    text-align: center;
+}
+
+/* --- Area covered widget --- */
+.area-covered-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.area-covered-main {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.area-covered-number {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--aerata-lime);
+    font-family: 'Manrope', monospace;
+}
+
+.area-covered-unit {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--aerata-text);
+}
+
+.area-covered-sub {
+    font-size: 0.85rem;
+    color: var(--aerata-text-secondary);
+}
+
+.area-covered-caption {
+    font-size: 0.7rem;
+    color: var(--aerata-text-secondary);
+    opacity: 0.8;
+}
+
+/* --- Global search: now lives in the navbar --- */
+.global-search-wrapper {
+    position: relative;
+}
+
+.navbar-search-wrapper {
+    flex: 1;
+    max-width: 420px;
+    margin: 0 1.5rem;
+}
+
+.global-search-input {
+    background-color: var(--aerata-bg);
+    border: 1px solid var(--aerata-border);
+    color: var(--aerata-text);
+    padding-right: 5.5rem;
+}
+
+.global-search-input:focus {
+    background-color: var(--aerata-bg);
+    color: var(--aerata-text);
+    border-color: var(--aerata-lime);
+    box-shadow: 0 0 0 0.2rem rgba(183, 230, 75, 0.2);
+}
+
+.navbar-search-hint {
+    position: absolute;
+    top: 50%;
+    right: 0.6rem;
+    transform: translateY(-50%);
+    background-color: var(--aerata-bg-elevated);
+    border: 1px solid var(--aerata-border);
+    color: var(--aerata-text-secondary);
+    font-size: 0.7rem;
+    font-family: 'Manrope', monospace;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    pointer-events: none;
+}
+
+.navbar-search-results {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    background-color: var(--aerata-bg-card);
+    border: 1px solid var(--aerata-border);
+    border-radius: 10px;
+    padding: 0.75rem;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    max-height: 320px;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.global-search-results {
+    display: none;
+}
+
+.global-search-results.active {
+    display: block;
+}
+
+.global-search-results::-webkit-scrollbar {
+    width: 5px;
+}
+
+.global-search-results::-webkit-scrollbar-thumb {
+    background: var(--aerata-border);
+    border-radius: 10px;
+}
+
+.search-group-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--aerata-text-secondary);
+    margin: 0.6rem 0 0.3rem;
+}
+
+.search-group-label:first-child {
+    margin-top: 0;
+}
+
+.search-result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.6rem;
+    background-color: var(--aerata-bg);
+    border: 1px solid var(--aerata-border);
+    border-radius: 8px;
+    text-decoration: none !important;
+    margin-bottom: 0.35rem;
+    transition: 0.15s;
+}
+
+.search-result-row:hover {
+    border-color: var(--aerata-lime);
+}
+
+.search-result-title {
+    color: var(--aerata-text);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.search-result-meta {
+    color: var(--aerata-text-secondary);
+    font-size: 0.75rem;
+}
+
+.search-empty {
+    color: var(--aerata-text-secondary);
+    font-size: 0.85rem;
+    padding: 0.5rem 0;
+}
+.coverage-split {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 1.5rem;
+}
+
+.coverage-half {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.coverage-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--aerata-lime);
+    font-family: 'Manrope', monospace;
+}
+
+.coverage-unit {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--aerata-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.coverage-divider {
+    width: 1px;
+    align-self: stretch;
+    background-color: var(--aerata-border);
+}
+
+.area-covered-caption {
+    font-size: 0.7rem;
+    color: var(--aerata-text-secondary);
+    opacity: 0.8;
+    text-align: center;
+    margin-top: 0.75rem;
+}

@@ -1,103 +1,123 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Rwe Attica Wind Farm Inspection — Aerata</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #1B2025; color: #f1f1f1; }
-        .navbar { background-color: #20262D; }
-        .navbar-brand { color: #8BB25C !important; font-weight: bold; }
-        .card { background-color: #20262D; border: none; }
-        .badge-scheduled { background-color: #55B5FF; color: #1B2025; }
-        .info-label { color: #8a929a; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
-        .info-value { font-size: 1.1rem; margin-bottom: 1.2rem; color: #f1f1f1; }
-        .btn-primary { background-color: #8BB25C; border: none; }
-        .btn-outline-light:hover { background-color: #2a313a; }
-        .deliverable-row { border-bottom: 1px solid #2a313a; padding: 0.75rem 0; color: #f1f1f1; }
-    </style>
+<meta charset="UTF-8">
+<title>{{ project.title }} — Aerata</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="{% static 'survey/css/style.css' %}" rel="stylesheet">
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-dark px-4">
-    <a class="navbar-brand" href="project_list.html">AERATA</a>
-    <div class="ms-auto">
-        <a class="btn btn-outline-light btn-sm" href="project_list.html">&larr; Back to Projects</a>
-    </div>
-</nav>
-
-<div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-start mb-4">
-        <div>
-            <h2>Rwe Attica Wind Farm Inspection</h2>
-            <span class="badge badge-scheduled">Scheduled</span>
-        </div>
-        <div>
-            <a href="#" class="btn btn-outline-light btn-sm me-2">Edit</a>
-            <a href="#" class="btn btn-primary btn-sm">Update Status</a>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card p-4 mb-4">
-                <h5 class="mb-3">Project Details</h5>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="info-label">Client</div>
-                        <div class="info-value">RWE Renewables Greece</div>
-                    </div>
-                    <div class="col-6">
-                        <div class="info-label">Service Type</div>
-                        <div class="info-value">Wind Turbine Inspection</div>
-                    </div>
-                    <div class="col-6">
-                        <div class="info-label">Area</div>
-                        <div class="info-value">0.80 km²</div>
-                    </div>
-                    <div class="col-6">
-                        <div class="info-label">Price</div>
-                        <div class="info-value">€5,200.00</div>
-                    </div>
-                    <div class="col-6">
-                        <div class="info-label">Requested Date</div>
-                        <div class="info-value">2026-08-15</div>
-                    </div>
-                    <div class="col-6">
-                        <div class="info-label">Scheduled Date</div>
-                        <div class="info-value">2026-08-22</div>
-                    </div>
-                </div>
-                <div class="info-label">Description</div>
-                <p class="info-value">Structural inspection of turbine blades for cracks and erosion damage across the RWE Attica wind farm site.</p>
-            </div>
-
-            <div class="card p-4">
-                <h5 class="mb-3">Deliverables</h5>
-                <div class="deliverable-row d-flex justify-content-between">
-                    <span>Thermal Imagery Report</span>
-                    <span class="text-secondary">Not yet delivered</span>
-                </div>
-                <div class="deliverable-row d-flex justify-content-between">
-                    <span>3D Model</span>
-                    <span class="text-secondary">Not yet delivered</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card p-4">
-                <h5 class="mb-3">Client Contact</h5>
-                <div class="info-label">Company</div>
-                <div class="info-value">RWE Renewables Greece</div>
-                <div class="info-label">Contact Person</div>
-                <div class="info-value">Charilaos Mitrelias</div>
-                <div class="info-label">Sector</div>
-                <div class="info-value">Energy</div>
-            </div>
-        </div>
-    </div>
+<a class="navbar-brand" href="{% url 'dashboard' %}">
+    <img src="{% static 'survey/images/aerata-logo-white.png' %}" alt="Aerata">
+</a>
+<div class="ms-auto">
+<a class="btn btn-outline-light btn-sm" href="{% url 'project_list' %}">&larr; Back to Projects</a>
 </div>
+</nav>
+<div class="container mt-5">
+<div class="d-flex justify-content-between align-items-start mb-4">
+<div>
+<h2>{{ project.title }}</h2>
+<span id="status-badge" class="badge badge-{{ project.status }}">{{ project.get_status_display }}</span>
+</div>
+<div class="d-flex align-items-center gap-2">
+<select id="status-select" class="form-select form-select-sm" style="width: auto;">
+<option value="requested" {% if project.status == "requested" %}selected{% endif %}>Requested</option>
+<option value="scheduled" {% if project.status == "scheduled" %}selected{% endif %}>Scheduled</option>
+<option value="flown" {% if project.status == "flown" %}selected{% endif %}>Flown</option>
+<option value="delivered" {% if project.status == "delivered" %}selected{% endif %}>Delivered</option>
+</select>
+<button id="update-status-btn" class="btn btn-primary btn-sm">Update Status</button>
+<a href="{% url 'project_edit' project.pk %}" class="btn btn-outline-light btn-sm">Edit</a>
+<form method="post" action="{% url 'project_delete' project.pk %}" id="delete-form" class="d-inline">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-danger btn-sm" id="delete-btn">Delete</button>
+</form>
+</div>
+</div>
+
+<div id="status-message"></div>
+
+<div class="row mt-3">
+<div class="col-md-8">
+<div class="card p-4 mb-4">
+<h5 class="mb-3">Project Details</h5>
+<div class="row">
+<div class="col-6">
+<div class="info-label">Client</div>
+<div class="info-value">{{ project.client.name }}</div>
+</div>
+<div class="col-6">
+<div class="info-label">Service Type</div>
+<div class="info-value">{{ project.service_type.name }}</div>
+</div>
+<div class="col-6">
+<div class="info-label">Area</div>
+<div class="info-value">{{ project.area_km2|default:"—" }} km²</div>
+</div>
+<div class="col-6">
+<div class="info-label">Price</div>
+<div class="info-value">{% if project.price %}€{{ project.price }}{% else %}—{% endif %}</div>
+</div>
+<div class="col-6">
+<div class="info-label">Requested Date</div>
+<div class="info-value">{{ project.requested_date }}</div>
+</div>
+<div class="col-6">
+<div class="info-label">Scheduled Date</div>
+<div class="info-value">{{ project.scheduled_date|default:"Not scheduled yet" }}</div>
+</div>
+</div>
+<div class="info-label">Description</div>
+<p class="info-value">{{ project.description|default:"No description provided." }}</p>
+</div>
+<div class="card p-4">
+<h5 class="mb-3">Deliverables</h5>
+{% for deliverable in deliverables %}
+<div class="deliverable-row d-flex justify-content-between">
+<span>{{ deliverable.get_file_type_display }}</span>
+<span class="text-secondary">{{ deliverable.delivered_date }}</span>
+</div>
+{% empty %}
+<p class="text-secondary mb-0">No deliverables yet.</p>
+{% endfor %}
+<form method="post" action="{% url 'add_deliverable' project.pk %}" class="d-flex gap-2 mt-3 flex-wrap">
+    {% csrf_token %}
+    {{ deliverable_form.file_type }}
+    {{ deliverable_form.delivered_date }}
+    <button type="submit" class="btn btn-primary btn-sm">Add Deliverable</button>
+</form>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card p-4">
+<h5 class="mb-3">Client Contact</h5>
+<div class="info-label">Company</div>
+<div class="info-value">{{ project.client.name }}</div>
+<div class="info-label">Contact Person</div>
+<div class="info-value">{{ project.client.contact_person|default:"—" }}</div>
+<div class="info-label">Sector</div>
+<div class="info-value">{{ project.client.get_sector_display }}</div>
+</div>
+</div>
+</div>
+</div>
+
+<footer class="aerata-footer">
+    <img src="{% static 'survey/images/aerata-logo-white.png' %}" alt="Aerata" class="footer-logo">
+    <div class="footer-text">AERATA B.V. · info@aerata.com · aerata.com</div>
+</footer>
+
+<script src="{% static 'survey/js/main.js' %}" data-update-url="{% url 'update_project_status' project.pk %}"></script>
+<script>
+document.getElementById('delete-form').addEventListener('submit', function (e) {
+    if (!confirm('Are you sure you want to delete this project? This cannot be undone.')) {
+        e.preventDefault();
+    }
+});
+</script>
 
 </body>
 </html>

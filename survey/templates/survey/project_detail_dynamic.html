@@ -1,53 +1,44 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>{{ project.title }} — Aerata</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-body { background-color: #1B2025; color: #f1f1f1; }
-.navbar { background-color: #20262D; }
-.navbar-brand { color: #8BB25C !important; font-weight: bold; }
-.card { background-color: #20262D; border: none; }
-.badge-requested { background-color: #E07B54; }
-.badge-scheduled { background-color: #55B5FF; color: #1B2025; }
-.badge-flown { background-color: #8BB25C; }
-.badge-delivered { background-color: #7ECF78; color: #1B2025; }
-.info-label { color: #8a929a; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
-.info-value { font-size: 1.1rem; margin-bottom: 1.2rem; color: #f1f1f1; }
-.btn-primary { background-color: #8BB25C; border: none; }
-.btn-outline-light:hover { background-color: #2a313a; }
-.deliverable-row { border-bottom: 1px solid #2a313a; padding: 0.75rem 0; color: #f1f1f1; }
-.form-select { background-color: #1B2025; border: 1px solid #2a313a; color: #f1f1f1; }
-.form-select option { background-color: #1B2025; color: #f1f1f1; }
-#status-message { font-size: 0.85rem; margin-top: 0.5rem; }
-</style>
+<link href="{% static 'survey/css/style.css' %}" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark px-4">
-<a class="navbar-brand" href="{% url 'project_list' %}">AERATA</a>
-<div class="ms-auto">
-<a class="btn btn-outline-light btn-sm" href="{% url 'project_list' %}">&larr; Back to Projects</a>
+<a class="navbar-brand" href="{% url 'dashboard' %}">
+    <img src="{% static 'survey/images/aerata-logo-white.png' %}" alt="Aerata">
+</a>
+<div class="ms-auto d-flex gap-2">
+<a class="btn btn-outline-light" href="{% url 'dashboard' %}">Home</a>
+<a class="btn btn-outline-light" href="{% url 'project_list' %}">&larr; Back to Projects</a>
 </div>
 </nav>
 <div class="container mt-5">
-<div class="d-flex justify-content-between align-items-start mb-4">
+<div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
 <div>
 <h2>{{ project.title }}</h2>
 <span id="status-badge" class="badge badge-{{ project.status }}">{{ project.get_status_display }}</span>
 </div>
-<div class="d-flex align-items-center gap-2">
-<select id="status-select" class="form-select form-select-sm" style="width: auto;">
+<div class="project-actions-bar">
+<select id="status-select" class="form-select">
 <option value="requested" {% if project.status == "requested" %}selected{% endif %}>Requested</option>
 <option value="scheduled" {% if project.status == "scheduled" %}selected{% endif %}>Scheduled</option>
 <option value="flown" {% if project.status == "flown" %}selected{% endif %}>Flown</option>
 <option value="delivered" {% if project.status == "delivered" %}selected{% endif %}>Delivered</option>
 </select>
-<button id="update-status-btn" class="btn btn-primary btn-sm">Update Status</button>
+<button id="update-status-btn" class="btn btn-primary">Update Status</button>
+<a href="{% url 'project_edit' project.pk %}" class="btn btn-outline-light">Edit</a>
+<form method="post" action="{% url 'project_delete' project.pk %}" id="delete-form" class="d-inline m-0">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-danger" id="delete-btn">Delete</button>
+</form>
 </div>
 </div>
 
-{% csrf_token %}
 <div id="status-message"></div>
 
 <div class="row mt-3">
@@ -93,6 +84,12 @@ body { background-color: #1B2025; color: #f1f1f1; }
 {% empty %}
 <p class="text-secondary mb-0">No deliverables yet.</p>
 {% endfor %}
+<form method="post" action="{% url 'add_deliverable' project.pk %}" class="d-flex gap-2 mt-3 flex-wrap">
+    {% csrf_token %}
+    {{ deliverable_form.file_type }}
+    {{ deliverable_form.delivered_date }}
+    <button type="submit" class="btn btn-primary btn-sm">Add Deliverable</button>
+</form>
 </div>
 </div>
 <div class="col-md-4">
@@ -109,36 +106,17 @@ body { background-color: #1B2025; color: #f1f1f1; }
 </div>
 </div>
 
+<footer class="aerata-footer">
+    <img src="{% static 'survey/images/aerata-logo-white.png' %}" alt="Aerata" class="footer-logo">
+    <div class="footer-text">AERATA B.V. · info@aerata.com · aerata.com</div>
+</footer>
+
+<script src="{% static 'survey/js/main.js' %}" data-update-url="{% url 'update_project_status' project.pk %}"></script>
 <script>
-const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-document.getElementById('update-status-btn').addEventListener('click', function () {
-    const newStatus = document.getElementById('status-select').value;
-    const messageBox = document.getElementById('status-message');
-    const badge = document.getElementById('status-badge');
-
-    fetch("{% url 'update_project_status' project.pk %}", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRFToken': csrftoken,
-        },
-        body: 'status=' + encodeURIComponent(newStatus),
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            badge.textContent = data.status_display;
-            badge.className = 'badge badge-' + data.status;
-            messageBox.innerHTML = '<span class="text-success">Status updated successfully.</span>';
-        } else {
-            messageBox.innerHTML = '<span class="text-danger">Error: ' + data.error + '</span>';
-        }
-        setTimeout(() => { messageBox.innerHTML = ''; }, 3000);
-    })
-    .catch(error => {
-        messageBox.innerHTML = '<span class="text-danger">Request failed.</span>';
-    });
+document.getElementById('delete-form').addEventListener('submit', function (e) {
+    if (!confirm('Are you sure you want to delete this project? This cannot be undone.')) {
+        e.preventDefault();
+    }
 });
 </script>
 

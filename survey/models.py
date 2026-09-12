@@ -16,6 +16,8 @@ class Client(models.Model):
     SECTOR_CHOICES = [
         ('energy', 'Energy'),
         ('infrastructure', 'Infrastructure'),
+        ('oil_gas', 'Oil & Gas'),
+        ('surveying', 'Surveying & Mapping'),
         ('agriculture', 'Agriculture'),
         ('other', 'Other'),
     ]
@@ -46,6 +48,13 @@ class SurveyProject(models.Model):
     service_type = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='projects')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='requested')
     area_km2 = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    capacity_mw = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="Installed capacity in MW, for solar/wind inspection projects only."
+    )
     requested_date = models.DateField()
     scheduled_date = models.DateField(null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)

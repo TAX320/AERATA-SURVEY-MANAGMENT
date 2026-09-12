@@ -1,0 +1,35 @@
+{% if query %}
+    {% if not projects and not clients and not deliverables %}
+    <div class="search-empty">No results for "{{ query }}"</div>
+    {% endif %}
+
+    {% if projects %}
+    <div class="search-group-label">Projects</div>
+    {% for project in projects %}
+    <a href="{% url 'project_detail' project.pk %}" class="search-result-row">
+        <span class="search-result-title">{{ project.title }}</span>
+        <span class="search-result-meta">{{ project.client.name }}</span>
+    </a>
+    {% endfor %}
+    {% endif %}
+
+    {% if clients %}
+    <div class="search-group-label">Clients</div>
+    {% for client in clients %}
+    <a href="{% url 'client_detail' client.pk %}" class="search-result-row">
+        <span class="search-result-title">{{ client.name }}</span>
+        <span class="search-result-meta">{{ client.get_sector_display }}</span>
+    </a>
+    {% endfor %}
+    {% endif %}
+
+    {% if deliverables %}
+    <div class="search-group-label">Inspection Reports</div>
+    {% for deliverable in deliverables %}
+    <a href="{% url 'project_detail' deliverable.project.pk %}" class="search-result-row">
+        <span class="search-result-title">{{ deliverable.get_file_type_display }}</span>
+        <span class="search-result-meta">{{ deliverable.project.title }}</span>
+    </a>
+    {% endfor %}
+    {% endif %}
+{% endif %}

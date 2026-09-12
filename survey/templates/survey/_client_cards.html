@@ -1,18 +1,20 @@
 {% for client in clients %}
 <div class="col-md-6">
-    <div class="client-card">
-        <div class="d-flex justify-content-between align-items-start">
-            <div>
-                <div class="client-name">{{ client.name }}</div>
-                <div class="client-meta">{{ client.contact_person|default:"—" }}</div>
+    <a href="{% url 'client_detail' client.pk %}" class="client-card-link">
+        <div class="client-card">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="client-name">{{ client.name }}</div>
+                    <div class="client-meta">{{ client.contact_person|default:"—" }}</div>
+                </div>
+                <span class="sector-badge">{{ client.get_sector_display }}</span>
             </div>
-            <span class="sector-badge">{{ client.get_sector_display }}</span>
+            <hr style="border-color: #2a313a;">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="project-count">{{ client.projects.count }} project(s)</span>
+            </div>
         </div>
-        <hr style="border-color: #2a313a;">
-        <div class="d-flex justify-content-between align-items-center">
-            <span class="project-count">{{ client.projects.count }} project(s)</span>
-        </div>
-    </div>
+    </a>
 </div>
 {% empty %}
 <p class="text-secondary">No clients found.</p>
